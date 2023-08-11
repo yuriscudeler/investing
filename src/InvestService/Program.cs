@@ -1,4 +1,4 @@
-using InvestService1;
+using CoreLib;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService(options =>
@@ -7,7 +7,9 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureServices(services =>
     {
-        services.AddHostedService<ServiceBase>();
+        services.AddHostedService<TimedService>();
+        services.AddScoped<IWebScraper, WebScraper>();
+        services.AddHttpClient();
     })
     .Build();
 
