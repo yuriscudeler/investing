@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 IServiceCollection services = new ServiceCollection();
-services.AddScoped<IWebScraper, WebScraper>();
 services.AddScoped<TimedService>();
-services.AddScoped<IFileLogger, FileLogger>();
 services.AddScoped<IRunManager, DailyRunManager>();
-services.AddScoped<IRunnable, StocksScraping>();
+services.AddScoped<IRunnable, StocksRunnable>();
+services.AddScoped<IWebScraper, WebScraper>();
+services.AddScoped<IFileLogger, FileLogger>();
 services.AddHttpClient();
 
 IConfiguration config = new ConfigurationBuilder()

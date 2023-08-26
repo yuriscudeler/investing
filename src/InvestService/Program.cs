@@ -8,7 +8,10 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<TimedService>();
+        services.AddScoped<IRunManager, DailyRunManager>();
+        services.AddScoped<IRunnable, StocksRunnable>();
         services.AddScoped<IWebScraper, WebScraper>();
+        services.AddScoped<IFileLogger, FileLogger>();
         services.AddHttpClient();
     })
     .Build();

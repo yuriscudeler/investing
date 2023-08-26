@@ -7,5 +7,11 @@ namespace CoreLib.Model
     {
         public bool Success;
         public List<Exception> Exceptions;
+
+        public OperationResult(bool success = true)
+        {
+            Success = success;
+            Exceptions = new List<Exception>();
+        }
     }
 }

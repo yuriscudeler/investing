@@ -10,12 +10,14 @@ namespace CoreLib
         private readonly StockServiceOptions _config;
         private DateTime _lastRun;
         private IRunnable _runnable;
+        private IFileLogger _logger;
 
-        public DailyRunManager(IConfiguration configuration, IRunnable runnable)
+        public DailyRunManager(IConfiguration configuration, IRunnable runnable, IFileLogger logger)
         {
             _config = new StockServiceOptions();
             configuration.GetSection(StockServiceOptions.Key).Bind(_config);
             _runnable = runnable;
+            _logger = logger;
         }
 
         private bool ShouldRun()
@@ -28,6 +30,8 @@ namespace CoreLib
 
         public async Task Run()
         {
+            _logger.LogInfo($"Timer elapsed at {DateTime.Now}");
+
             if (!ShouldRun())
             {
                 return;

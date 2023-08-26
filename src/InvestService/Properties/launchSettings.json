@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "InvestService1": {
+    "InvestService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

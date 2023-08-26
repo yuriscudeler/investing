@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
@@ -8,12 +9,11 @@ namespace CoreLib
     public class TimedService : BackgroundService
     {
         private readonly IRunManager _runManager;
-        private readonly IFileLogger _logger;
 
-        public TimedService(IRunManager runManager, IFileLogger logger)
+        public TimedService(IServiceScopeFactory scopeFactory)
         {
-            _runManager = runManager;
-            _logger = logger;
+            using var scope = scopeFactory.CreateScope();
+            _runManager = scope.ServiceProvider.GetService<IRunManager>();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -27,7 +27,6 @@ namespace CoreLib
 
         public async Task TimerElapsed()
         {
-            _logger.LogInfo($"Timer elapsed at {DateTime.Now}");
             await _runManager.Run();
         }
     }

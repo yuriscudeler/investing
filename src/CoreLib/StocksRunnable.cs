@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace CoreLib
 {
-    public class StocksScraping : IRunnable
+    public class StocksRunnable : IRunnable
     {
         private readonly StockServiceOptions _config;
         private readonly IWebScraper _webScraper;
         private readonly IFileLogger _logger;
 
-        public StocksScraping(IConfiguration configuration, IWebScraper scraper, IFileLogger logger)
+        public StocksRunnable(IConfiguration configuration, IWebScraper scraper, IFileLogger logger)
         {
             _config = new StockServiceOptions();
             configuration.GetSection(StockServiceOptions.Key).Bind(_config);
