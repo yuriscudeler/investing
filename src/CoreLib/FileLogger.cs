@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 
@@ -16,7 +17,7 @@ namespace CoreLib
     public class FileLogger : IFileLogger
     {
         private IConfiguration _configuration;
-        private string LogDirectory => _configuration.GetValue<string>("StockService:LogDirectory");
+        private string _logDirectory => _configuration.GetValue<string>("StockService:LogDirectory");
 
         public FileLogger(IConfiguration configuration)
         {
@@ -25,28 +26,42 @@ namespace CoreLib
 
         public void LogError(string content)
         {
-            Log($"[ERROR] {content}", LogDirectory);
+            Log(LogLevel.Error, content);
         }
 
         public void LogInfo(string content)
         {
-            Log($"[INFO] {content}", LogDirectory);
+            Log(LogLevel.Information, content);
         }
 
         public void LogWarning(string content)
         {
-            Log($"[WARNING] {content}", LogDirectory);
+            Log(LogLevel.Warning, content);
         }
 
-        private void Log(string content, string basePath)
+        private void Log(LogLevel logLevel, string content)
         {
+            var now = DateTimeOffset.Now;
+            // [TIMESTAMP] [LEVEL] Content
+
+            // set level
+            if (logLevel == LogLevel.Information) content = $"[INFO] {content}";
+            else if (logLevel == LogLevel.Error) content = $"[ERROR] {content}";
+            else if (logLevel == LogLevel.Warning) content = $"[WARNING] {content}";
+
+            // set timestamp
+            var timestamp = now.ToString("HH:mm:ss");
+            content = $"[{timestamp}] {content}";
+
+            // log to console
             var consoleLog = _configuration.GetValue<bool?>("Logging:Console");
             if (consoleLog.HasValue && consoleLog.Value)
             {
                 Console.WriteLine(content);
             }
-            var date = DateTimeOffset.Now.Date.ToString("yyyy-MM-dd");
-            var filepath = $"{basePath}{date}.txt";
+            
+            var date = now.Date.ToString("yyyy-MM-dd");
+            var filepath = $"{_logDirectory}{date}.txt";
             AppendToFile(content, filepath);
         }
 

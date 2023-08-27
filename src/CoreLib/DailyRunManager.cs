@@ -30,7 +30,7 @@ namespace CoreLib
 
         public async Task Run()
         {
-            _logger.LogInfo($"Timer elapsed at {DateTime.Now}");
+            _logger.LogInfo($"Timer elapsed");
 
             if (!ShouldRun())
             {
