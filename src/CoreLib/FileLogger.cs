@@ -59,7 +59,7 @@ namespace CoreLib
             {
                 Console.WriteLine(content);
             }
-            
+
             var date = now.Date.ToString("yyyy-MM-dd");
             var filepath = $"{_logDirectory}{date}.txt";
             AppendToFile(content, filepath);

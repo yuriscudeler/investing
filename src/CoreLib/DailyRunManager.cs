@@ -36,7 +36,7 @@ namespace CoreLib
             {
                 return;
             }
-            
+
             var operationResult = await _runnable.Run();
 
             // only set run if there were no errors

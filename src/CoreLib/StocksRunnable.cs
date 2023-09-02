@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using CoreLib.Model;
+﻿using CoreLib.Model;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Threading.Tasks;
 
 namespace CoreLib
 {

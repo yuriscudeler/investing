@@ -1,12 +1,11 @@
 ﻿using CoreLib.Model;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace CoreLib
 {
@@ -50,18 +49,18 @@ namespace CoreLib
         {
             List<Dividend> list = new List<Dividend>();
             HtmlNode node = htmlDoc.DocumentNode.SelectSingleNode("//input[@id='results']");
-            
+
             if (node == null)
             {
                 return list;
             }
-            
+
             string value = node.GetAttributeValue("value", string.Empty);
             if (!string.IsNullOrEmpty(value))
             {
                 list.AddRange(JsonConvert.DeserializeObject<List<Dividend>>(HttpUtility.HtmlDecode(value)));
             }
-            
+
             return list;
         }
     }

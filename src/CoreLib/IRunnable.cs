@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using CoreLib.Model;
+﻿using CoreLib.Model;
+using System.Threading.Tasks;
 
 namespace CoreLib
 {
