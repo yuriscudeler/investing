@@ -1,6 +1,7 @@
 ﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "InvestService": {
+    "BackgroundWorker": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
