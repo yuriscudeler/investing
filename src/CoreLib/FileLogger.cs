@@ -80,7 +80,12 @@ namespace CoreLib
 
         private void CreateFile(string filePath)
         {
-            string directory = filePath.Substring(0, filePath.LastIndexOf(Path.DirectorySeparatorChar) + 1);
+            char separator = '/';
+            if (!filePath.Contains(separator))
+            {
+                separator = '\\';
+            }
+            string directory = filePath.Substring(0, filePath.LastIndexOf(separator) + 1);
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
